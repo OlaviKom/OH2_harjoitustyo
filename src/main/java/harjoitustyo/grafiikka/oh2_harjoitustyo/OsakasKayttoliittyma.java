@@ -3,18 +3,14 @@ package harjoitustyo.grafiikka.oh2_harjoitustyo;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.util.ArrayList;
 
 public class OsakasKayttoliittyma extends Application {
 
@@ -71,7 +67,6 @@ public class OsakasKayttoliittyma extends Application {
             LisaaNaytto lisaa = new LisaaNaytto();
             lisaa.lisaaNaytto();
         });
-        //this.paivita.setOnAction(e -> paivitaNaytto());
         this.paivita.setOnAction(e -> {
             PaivitaNaytto paivita = new PaivitaNaytto();
             paivita.paivitaNaytto();

@@ -1,5 +1,6 @@
 package harjoitustyo.grafiikka.oh2_harjoitustyo;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -40,19 +41,15 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
 
     private final ComboBox<String> paivitaCbOsakkaat = new ComboBox<>();
 
-    private ListView<String> osakasValinta;
-
-    private TextArea osakasTiedot;
-
     private int valittuIndeksi;
 
-    private ArrayList<String> nimiTesti = new ArrayList<>();
+    private ArrayList<String> osakkaidenNimet = new ArrayList<>();
 
     public void asetaNimet() {
         for(Osakas olio: tiedosto.getOsakkaat()){
-            nimiTesti.add(olio.getNimi());
+            osakkaidenNimet.add(olio.getNimi());
         }
-        paivitaCbOsakkaat.setItems(FXCollections.observableArrayList(nimiTesti));
+        paivitaCbOsakkaat.setItems(FXCollections.observableArrayList(osakkaidenNimet));
     }
 
 
@@ -113,6 +110,18 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
         paivitaNayttoButtonit.setAlignment(Pos.BOTTOM_CENTER);
         paivitaNayttoPaneeli.setBottom(paivitaNayttoButtonit);
 
+
+         // Asetetaan tallenna buttoni ei klikattavaksi,
+         // jos kaikkiin kenttiin ei ole syötetty arvoa
+        paivitaTallenna.disableProperty().bind(
+                Bindings.isEmpty(paivitaTfNimi.textProperty())
+                        .or(Bindings.isEmpty(paivitaTfKiinteistotunnus.textProperty()))
+                        .or(Bindings.isEmpty(paivitaTfLaskutusosoite.textProperty()))
+                        .or(Bindings.isEmpty(paivitaTfEmail.textProperty()))
+                        .or(Bindings.isEmpty(paivitaTfPuhnum.textProperty()))
+                        .or(Bindings.isEmpty(paivitaTfMatka.textProperty()))
+                        .or(Bindings.isEmpty(paivitaTfPainoluku.textProperty())));
+
         paivitaTallenna.setOnAction(e -> {
             tiedosto.getOsakkaat().get(valittuIndeksi).setNimi(paivitaTfNimi.getText());
             tiedosto.getOsakkaat().get(valittuIndeksi).setKiinteistotunnus(paivitaTfKiinteistotunnus.getText());
@@ -125,9 +134,7 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
             OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
         });
 
-        paivitaPoistu.setOnAction(e -> {
-            paivitaStage.close();
-        });
+        paivitaPoistu.setOnAction(e -> paivitaStage.close());
 
         Scene lisaaKehys = new Scene(paivitaNayttoPaneeli, 400, 400);
         paivitaStage.setScene(lisaaKehys);
