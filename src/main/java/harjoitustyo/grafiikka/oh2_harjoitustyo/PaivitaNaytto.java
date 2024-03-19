@@ -13,38 +13,48 @@ import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-
 import java.util.ArrayList;
 
+/**
+ * PaivitaNaytto.java
+ * Tämä luokka on uuden yksityistieo osakkaan tietojen päivittämistä käsittelävä popup ikkuna/naytto
+ * toimii OsakasKayttoliittyman aliluokkana
+ * @author Antti Komulainen
+ * @version 1.00 17/03/2024
+ */
+
 public class PaivitaNaytto extends OsakasKayttoliittyma {
-
-
+    /** painike tietojen tallentamista varten */
     private final Button paivitaTallenna = new Button("Tallenna");
-
+    /** painike poistumista varten */
     private final Button paivitaPoistu = new Button("Poistu");
-
+    /** tekstikenttä nimen syöttämistä varten */
     private final TextField paivitaTfNimi = new TextField();
-
+    /** tekstikenttä kiinteistötunnuksen syöttämistä varten */
     private final TextField paivitaTfKiinteistotunnus = new TextField();
-
+    /** tekstikenttä laskutusosoitteen syöttämistä varten */
     private final TextField paivitaTfLaskutusosoite = new TextField();
-
+    /** tekstikenttä sähköpostiosoitteen syöttämistä varten */
     private final TextField paivitaTfEmail = new TextField();
-
+    /** tekstikenttä puhelinnumeron syöttämistä varten */
     private final TextField paivitaTfPuhnum = new TextField();
-
+    /** tekstikenttä matkan syöttämistä varten */
     private final TextField paivitaTfMatka = new TextField();
-
+    /** tekstikenttä painoluvun syöttämistä varten */
     private final TextField paivitaTfPainoluku = new TextField();
-
+    /** valinta lista, josta voidaan valita osakkaan liikennelaji */
     private final ComboBox<String> paivitaCbLiikennelaji = new ComboBox<>();
-
+    /** valinta lista, päivitettävän osakkaan valitsemista varten */
     private final ComboBox<String> paivitaCbOsakkaat = new ComboBox<>();
-
+    /** valitun osakkaan ideksi */
     private int valittuIndeksi;
-
+    /** lista osakkaiden nimiä varten */
     private ArrayList<String> osakkaidenNimet = new ArrayList<>();
 
+    /**
+     * asettaa osakkaiden nimet osakkaidenNimet listaan
+     * lisää nimet comboboxiin josta päivitettävän osakkaan voi valita
+     */
     public void asetaNimet() {
         for(Osakas olio: tiedosto.getOsakkaat()){
             osakkaidenNimet.add(olio.getNimi());
@@ -52,21 +62,29 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
         paivitaCbOsakkaat.setItems(FXCollections.observableArrayList(osakkaidenNimet));
     }
 
-
+    /**
+     * Popup ikkunan/nayton käynnistys ja toiminnalisuuksien määrittely
+     * sisältää paneelin, solmut, kuuntelijat ja tapahtuman käsittelijät
+     */
     public void paivitaNaytto() {
+        // kutsutaan asetaNimet metodia
         asetaNimet();
+        // Stage
         Stage paivitaStage = new Stage();
+        // Paneeli
         BorderPane paivitaNayttoPaneeli = new BorderPane();
 
+        // gridpane johon, lisätään tekstikentät ja valinta lista
         GridPane osakkaanTiedot = new GridPane();
+        // määritettään valit
         osakkaanTiedot.setHgap(5);
         osakkaanTiedot.setVgap(5);
         osakkaanTiedot.setAlignment(Pos.CENTER);
         osakkaanTiedot.add(new Text("Osakas"), 0,0);
-
+        // aseteaan comboboxiin oletus teksti
         paivitaCbOsakkaat.setValue("Osakkas kenen tiedot päivitetään");
 
-
+        // combobxin kuuntelija, asettaa valitun osakkaan tiedot valmiiksi tekstikenttiin
         paivitaCbOsakkaat.setOnAction(e -> {
             valittuIndeksi = paivitaCbOsakkaat.getSelectionModel().getSelectedIndex();
             paivitaTfNimi.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getNimi());
@@ -79,7 +97,7 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
             paivitaCbLiikennelaji.setValue(tiedosto.getOsakkaat().get(valittuIndeksi).getLiikennelaji());
         });
 
-
+        // loppujen solmujen lisääminen gridpaneen
         osakkaanTiedot.add(paivitaCbOsakkaat, 1,0);
         osakkaanTiedot.add(new Text("Nimi (Etu- ja sukunimi)"), 0,1);
         osakkaanTiedot.add(paivitaTfNimi, 1,1 );
@@ -96,14 +114,15 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
         osakkaanTiedot.add(new Text("Painoluku"), 0, 7);
         osakkaanTiedot.add(paivitaTfPainoluku, 1,7);
         osakkaanTiedot.add(new Text("Liikennelaji"), 0, 8);
+        // combobox josta valitaan sopiva liikkennelaji osakkaalle
+        // oletus valintana vakituinen asunto
         paivitaCbLiikennelaji.setValue("Vakituinen asunto");
-        // HUOMM!!tässä bugi, lisää aina liikennelajit uudestaan valikkoon,
-        // kun mennään lisaa näyttöön KORJAA
         ObservableList<String> alkiot = FXCollections.observableArrayList(getLiikennelajit());
         paivitaCbLiikennelaji.getItems().addAll(alkiot);
         osakkaanTiedot.add(paivitaCbLiikennelaji, 1,8);
         paivitaNayttoPaneeli.setCenter(osakkaanTiedot);
 
+        // Hbox painikkeille tallenna ja poistu
         HBox paivitaNayttoButtonit = new HBox(5);
         paivitaNayttoButtonit.setPadding(new Insets(10));
         paivitaNayttoButtonit.getChildren().addAll(paivitaTallenna, paivitaPoistu);
@@ -122,6 +141,9 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
                         .or(Bindings.isEmpty(paivitaTfMatka.textProperty()))
                         .or(Bindings.isEmpty(paivitaTfPainoluku.textProperty())));
 
+        // tallenna painikkeen tapahtuman käsittelijä
+        // asettaa valitun osakkaan arvoiksi kenttiin syötetyt arvot
+        // asettaa lopuksi osakasValinta listViewiin lisätyn osakkaan nimen
         paivitaTallenna.setOnAction(e -> {
             tiedosto.getOsakkaat().get(valittuIndeksi).setNimi(paivitaTfNimi.getText());
             tiedosto.getOsakkaat().get(valittuIndeksi).setKiinteistotunnus(paivitaTfKiinteistotunnus.getText());
@@ -134,6 +156,8 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
             OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
         });
 
+        // poistu painikkeen tapahtuman käsittelijä
+        // sulkee ikkunan/nayton
         paivitaPoistu.setOnAction(e -> paivitaStage.close());
 
         Scene lisaaKehys = new Scene(paivitaNayttoPaneeli, 400, 400);

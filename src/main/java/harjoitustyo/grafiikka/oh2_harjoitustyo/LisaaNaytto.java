@@ -14,38 +14,53 @@ import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
+/**
+ * LisaaNaytto.java
+ * Tämä luokka on uuden yksityistieo osakkaan tietojen lisäämistä käsittelevä popup ikkuna/naytto
+ * toimii OsakasKayttoliittyman aliluokkana
+ * @author Antti Komulainen
+ * @version 1.00 17/03/2024
+ */
 public class LisaaNaytto extends OsakasKayttoliittyma {
-
+    /** painike tietojen tallentamista varten */
     private final Button tallenna = new Button("Tallenna");
-
+    /** painike poistumista varten */
     private final Button poistu = new Button("Poistu");
-
+    /** tekstikenttä nimen syöttämistä varten */
     private final TextField tfNimi = new TextField();
-
+    /** tekstikenttä kiinteistötunnuksen syöttämistä varten */
     private final TextField tfKiinteistotunnus = new TextField();
-
+    /** tekstikenttä laskutusosoitteen syöttämistä varten */
     private final TextField tfLaskutusosoite = new TextField();
-
+    /** tekstikenttä sähköpostiosoitteen syöttämistä varten */
     private final TextField tfEmail = new TextField();
-
+    /** tekstikenttä puhelinnumeron syöttämistä varten */
     private final TextField tfPuhnum = new TextField();
-
+    /** tekstikenttä matkan syöttämistä varten */
     private final TextField tfMatka = new TextField();
-
+    /** tekstikenttä painoluvun syöttämistä varten */
     private final TextField tfPainoluku = new TextField();
-
+    /** valinta lista, josta voidaan valita osakkaan liikennelaji */
     private final ComboBox<String> cbLiikennelaji = new ComboBox<>();
 
-    private final String [] liikennelajit = {"Vakituinen asunto", "Vapaa-ajan asunto", "Kesämökki", "Lomamökki"};
-
+    /**
+     * Popup ikkunan/nayton käynnistys ja toiminnalisuuksien määrittely
+     * sisältää paneelin, solmut, kuuntelijat ja tapahtuman käsittelijät
+     */
     public void lisaaNaytto() {
+        // Stage
         Stage lisaaStage = new Stage();
+        // paneeli
         BorderPane lisaaNayttoPaneeli = new BorderPane();
 
+        // gridpane johon, lisätään tekstikentät ja valinta lista
         GridPane osakkaanTiedot = new GridPane();
+        // määritettään valit
         osakkaanTiedot.setHgap(5);
         osakkaanTiedot.setVgap(5);
+        // määritetään sijainti keskelle
         osakkaanTiedot.setAlignment(Pos.CENTER);
+        // asetetaan solmut gridpaneen
         osakkaanTiedot.add(new Text("Nimi (Etu- ja sukunimi)"), 0,0);
         osakkaanTiedot.add(tfNimi, 1,0 );
         osakkaanTiedot.add(new Text("Kiinteistötunnus"), 0, 1);
@@ -61,21 +76,22 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
         osakkaanTiedot.add(new Text("Painoluokka"), 0, 6);
         osakkaanTiedot.add(tfPainoluku, 1,6);
         osakkaanTiedot.add(new Text("Liikennelaji"), 0, 7);
+        // combobox josta valitaan sopiva liikkennelaji osakkaalle
+        // oletus valintana vakituinen asunto
         cbLiikennelaji.setValue("Vakituinen asunto");
-        ObservableList<String> alkiot = FXCollections.observableArrayList(liikennelajit);
+        ObservableList<String> alkiot = FXCollections.observableArrayList(getLiikennelajit());
         cbLiikennelaji.getItems().addAll(alkiot);
         osakkaanTiedot.add(cbLiikennelaji, 1,7);
         lisaaNayttoPaneeli.setCenter(osakkaanTiedot);
 
+        // Hbox painikkeille tallenna ja poistu
         HBox lisaaNayttoButtonit = new HBox(5);
         lisaaNayttoButtonit.setPadding(new Insets(10));
         lisaaNayttoButtonit.getChildren().addAll(tallenna, poistu);
         lisaaNayttoButtonit.setAlignment(Pos.BOTTOM_CENTER);
         lisaaNayttoPaneeli.setBottom(lisaaNayttoButtonit);
 
-
-
-         // Asetetaan tallenna buttoni ei klikattavaksi,
+         // Asetetaan tallenna painike ei klikattavaksi,
          // jos kaikkiin kenttiin ei ole syötetty arvoa
         tallenna.disableProperty().bind(
                 Bindings.isEmpty(tfNimi.textProperty())
@@ -86,9 +102,9 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
                         .or(Bindings.isEmpty(tfMatka.textProperty()))
                         .or(Bindings.isEmpty(tfPainoluku.textProperty())));
 
-
-        poistu.setOnAction(e -> lisaaStage.close());
-
+        // tallenna painikkeen tapahtuman käsittelijä
+        // luo uuden Osakas olion ja antaa sille parametreinä tekstikenttien tiedot
+        // asettaa lopuksi osakasValinta listViewiin lisätyn osakkaan nimen
         tallenna.setOnAction(e -> {
             tiedosto.getOsakkaat().add(new Osakas(tfNimi.getText(),
                     tfKiinteistotunnus.getText(),
@@ -101,6 +117,10 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
             ));
             OsakasKayttoliittyma.osakasValinta.getItems().addAll(tiedosto.getOsakasNimet().getLast());
         });
+
+        // poistu painikkeen tapahtuman käsittelijä
+        // sulkee ikkunan/nayton
+        poistu.setOnAction(e -> lisaaStage.close());
 
         Scene lisaaKehys = new Scene(lisaaNayttoPaneeli, 400, 400);
         lisaaStage.setScene(lisaaKehys);

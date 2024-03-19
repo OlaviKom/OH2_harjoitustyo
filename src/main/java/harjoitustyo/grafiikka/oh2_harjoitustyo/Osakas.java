@@ -11,35 +11,35 @@ import java.text.DecimalFormat;
  */
 
 public class Osakas implements Serializable {
-    /** Kenttä nimi, osakkaan nimelle*/
+    /** Kenttä osakkaan nimelle */
     private String nimi;
     /** Kenttä kiinteistötunnus, osakkaan yksityistiellä sijaitsevalle kiinteistölle*/
     private String kiinteistotunnus;
-    /** Kenttä laskutusosoite, osakkaan laskutusosoite*/
+    /** Kenttä osakkaan laskutusosoiteelle*/
     private String laskutusosoite;
-    /** Kenttä email, osakkaan sähköpostiosoiteelle*/
+    /** Kenttä osakkaan sähköpostiosoiteelle*/
     private String email;
-    /** kenttä puhnum, osakkaan puhelinnumerolle*/
+    /** kenttä sakkaan puhelinnumerolle*/
     private String puhnum;
-    /** kenttä matka, osakkaan matka yksityistien alusta hänen kiinteistön
+    /** kenttä osakkaan matkalle yksityistien alusta hänen kiinteistön
      * tien risteykseen kilometreinä*/
     private double matka;
-    /** kenttä painoluku, osakkaan yksityistien käytöä kuvaava painoluku, yksikkö tonni*/
+    /** kenttä osakkaan yksityistien käytöä kuvaavalle painoluvulle, yksikkö tonnia*/
     private int painoluku;
-    /** kenttä liikennelaji, kuvaa miten osakkas käyttää tietä esim. asunto tai loma-asunto
+    /** kenttä osakkaan liikennelajille, kuvaa miten osakkas käyttää tietä esim. asunto tai loma-asunto
      * termi perustuu MML yksityistien yksiköinti 2023 ohjeeseen*/
     private String liikennelaji;
 
     /** Kenttä osakkaan tieyksikkojen määrää varten*/
     private double tieyksikkot;
-    /** kenttä tieMaksu, osakkaan yksityistie maksun määrää varten */
+    /** kenttä osakkaan yksityistie maksun määrää varten */
     private double tieMaksu;
     /** vakio yhden tieyksikön hinnalle*/
     final static double tieyksikkoHinta = 0.17;
 
 
     /**
-     * Luokan Osakan parametriton alustaja
+     * parametriton alustaja
      * asetaa oletuksena matkalle 0 km
      * asettaa oletuksena painoluvuksi vakituisen asunnon painoluku 1700 t
      * asettaa oletuksena, että osakkaan liikennelaji on vakituinen asunto
@@ -51,7 +51,7 @@ public class Osakas implements Serializable {
     }
 
     /**
-     * Luokan Osakas parametrillinen alustaja
+     * parametrillinen alustaja
      */
     public Osakas(String nimi, String kiinteistotunnus, String laskutusosoite,
                   String email, String puhnum, double matka,
@@ -68,7 +68,7 @@ public class Osakas implements Serializable {
         this.laskeTieMaksu();
     }
 
-    /** getNimi metodi
+    /**
      * palauttaa osakkaan nimen
      * @return nimi
      */
@@ -77,7 +77,6 @@ public class Osakas implements Serializable {
     }
 
     /**
-     * setNimi metodi
      * asettaa osakkaan nimen
      * @param nimi
      */
@@ -85,7 +84,7 @@ public class Osakas implements Serializable {
         this.nimi = nimi;
     }
 
-    /** getKiinteistotunnus metodi
+    /**
      * palauttaa osakkaan kiinteistötunnuksen
      * @return osoite
      */
@@ -94,7 +93,6 @@ public class Osakas implements Serializable {
     }
 
     /**
-     * setKiinteistotunnus metodi
      * asettaa osakkaan kiinteistöntunnuksen
      * @param kiinteistotunnus
      */
@@ -102,7 +100,7 @@ public class Osakas implements Serializable {
         this.kiinteistotunnus = kiinteistotunnus;
     }
 
-    /** getLaskutusosoite metodi
+    /**
      * palauttaa osakkaan laskutusosoitteen
      * @return laskutusosoite
      */
@@ -111,7 +109,6 @@ public class Osakas implements Serializable {
     }
 
     /**
-     * set laskutusosoite metodi
      * asettaa osakkaan laskutusosoitteen
      * @param laskutusosoite
      */
@@ -119,7 +116,7 @@ public class Osakas implements Serializable {
         this.laskutusosoite = laskutusosoite;
     }
 
-    /** getEmail metodi
+    /**
      * palauttaa osakkaan email osoitteen
      * @return email
      */
@@ -127,7 +124,7 @@ public class Osakas implements Serializable {
         return email;
     }
 
-    /** setEmail metodi
+    /**
      * asettaa osakkaan email osoitteen
      * @param email
      */
@@ -135,7 +132,7 @@ public class Osakas implements Serializable {
         this.email = email;
     }
 
-    /** getPuhnum metodi
+    /**
      * palauttaa osakkaan puhelinnumeron
      * @return puhnum
      */
@@ -143,7 +140,7 @@ public class Osakas implements Serializable {
         return puhnum;
     }
 
-    /** setPuhnum metodi
+    /**
      * asettaa osakkaan puhelinnumeron
      * @param puhnum
      */
@@ -151,7 +148,7 @@ public class Osakas implements Serializable {
         this.puhnum = puhnum;
     }
 
-    /** getMatka metodi
+    /**
      * palauttaa osakkaan matkan yksityistienalusta osakakan kiinteistön risteykseen
      * @return matka
      */
@@ -159,7 +156,7 @@ public class Osakas implements Serializable {
         return matka;
     }
 
-    /** setMatka metodi
+    /**
      * asettaa osakkaan matkan yksityistienalusta osakakan kiinteistön risteykseen
      * @param matka
      */
@@ -167,7 +164,7 @@ public class Osakas implements Serializable {
         this.matka = matka;
     }
 
-    /** getPainoLuku metodi
+    /**
      * palauttaa osakkaan tienkäyttöä kuvaavan painoluvun
      * @return painoluku
      */
@@ -175,7 +172,7 @@ public class Osakas implements Serializable {
         return painoluku;
     }
 
-    /** setPainoLuku metodi
+    /**
      * asettaa osakkaan tienkäyttöä kuvaavan painoluvun
      * @param painoluku
      */
@@ -183,7 +180,7 @@ public class Osakas implements Serializable {
         this.painoluku = painoluku;
     }
 
-    /** getLiikennelaji metodi
+    /**
      * palauttaa osakkaan liikennelajin
      * @return liikennelaji
      */
@@ -191,7 +188,7 @@ public class Osakas implements Serializable {
         return liikennelaji;
     }
 
-    /** setLiikennelaji metodi
+    /**
      * asettaa osakkaan liikennelajin
      * @param liikennelaji
      */
@@ -199,7 +196,7 @@ public class Osakas implements Serializable {
         this.liikennelaji = liikennelaji;
     }
 
-    /** getTieMaksu metodi
+    /**
      * palauttaa osakkaan tiemaksun määrän
      * @return tieMaksu
      */
@@ -207,7 +204,7 @@ public class Osakas implements Serializable {
         return tieMaksu;
     }
 
-    /** getTieyksikko metodi
+    /**
      * palauttaa osakkaan tieyksiköiden määrän
      * @return tieyksikko
      */
@@ -216,27 +213,24 @@ public class Osakas implements Serializable {
     }
 
 
-    /** laskeTieyksikko metodi
+    /**
      * laskee osakkaan tieyksiköiden määärän ja asettaa sen tieyksikko kentän arvoksi
      * kaava: painoluku * matka
-     * @param
      */
     public void laskeTieyksikkot(){
         if (this.matka > 0) {
             this.tieyksikkot = (painoluku * matka);
         }
     }
-    /** laskeTieMaksu metodi
+    /**
      * laskee osakkaan tiemaksun summan ja asettaa sen tieMaksu kentän arvoksi
      * kaava: tieyksiköiden määrä * tieyksiköhinta
-     * @param
      */
     public void laskeTieMaksu(){
         this.tieMaksu = (tieyksikkot * tieyksikkoHinta);
     }
 
     /**
-     * toString metodi
      * tulostaa osakkaan tiedot
      * @return osakasTiedot
      */
