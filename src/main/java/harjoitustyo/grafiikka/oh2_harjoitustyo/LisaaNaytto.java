@@ -7,9 +7,12 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -103,19 +106,36 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
                         .or(Bindings.isEmpty(tfPainoluku.textProperty())));
 
         // tallenna painikkeen tapahtuman käsittelijä
+        // tarkistaa onko textfieldien matka ja painoluku arvot numeerisia, jos ei textfieldeihin asetetaan
+        // virhe teksti ja uutta oliota ei saada luotua ennen kuin syötteiden arvot ovat numeeriset
         // luo uuden Osakas olion ja antaa sille parametreinä tekstikenttien tiedot
         // asettaa lopuksi osakasValinta listViewiin lisätyn osakkaan nimen
         tallenna.setOnAction(e -> {
-            tiedosto.getOsakkaat().add(new Osakas(tfNimi.getText(),
-                    tfKiinteistotunnus.getText(),
-                    tfLaskutusosoite.getText(),
-                    tfEmail.getText(),
-                    tfPuhnum.getText(),
-                    Double.parseDouble(tfMatka.getText()),
-                    Integer.parseInt(tfPainoluku.getText()),
-                    cbLiikennelaji.getValue()
-            ));
-            OsakasKayttoliittyma.osakasValinta.getItems().addAll(tiedosto.getOsakasNimet().getLast());
+            String virheTeksti = "Anna arvo lukuna";
+            if (onNumeerinen(tfMatka) && onNumeerinen(tfPainoluku)) {
+                tiedosto.getOsakkaat().add(new Osakas(tfNimi.getText(),
+                        tfKiinteistotunnus.getText(),
+                        tfLaskutusosoite.getText(),
+                        tfEmail.getText(),
+                        tfPuhnum.getText(),
+                        Double.parseDouble(tfMatka.getText()),
+                        Integer.parseInt(tfPainoluku.getText()),
+                        cbLiikennelaji.getValue()));
+                OsakasKayttoliittyma.osakasValinta.getItems().addAll(tiedosto.getOsakasNimet().getLast());
+            } else {
+                if(!onNumeerinen(tfMatka)) {
+                    tfMatka.setText(virheTeksti);
+                    tfMatka.setOnMouseClicked(event -> {
+                        tfMatka.setText("");
+                    });
+                }
+                if(!onNumeerinen(tfPainoluku)) {
+                    tfPainoluku.setText(virheTeksti);
+                    tfPainoluku.setOnMouseClicked(event -> {
+                        tfPainoluku.setText("");
+                    });
+                }
+            }
         });
 
         // poistu painikkeen tapahtuman käsittelijä
@@ -127,5 +147,15 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
         lisaaStage.setTitle("Lisää yksityistie osakas");
         lisaaStage.initModality(Modality.APPLICATION_MODAL);
         lisaaStage.show();
+    }
+
+    private boolean onNumeerinen(TextField kentta){
+        try{
+            Double.parseDouble(kentta.getText());
+            return true;
+        }
+        catch (NumberFormatException e){
+            return false;
+        }
     }
 }
