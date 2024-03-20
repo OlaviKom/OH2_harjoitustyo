@@ -106,10 +106,10 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
                         .or(Bindings.isEmpty(tfPainoluku.textProperty())));
 
         // tallenna painikkeen tapahtuman käsittelijä
-        // tarkistaa onko textfieldien matka ja painoluku arvot numeerisia, jos ei textfieldeihin asetetaan
-        // virhe teksti ja uutta oliota ei saada luotua ennen kuin syötteiden arvot ovat numeeriset
         // luo uuden Osakas olion ja antaa sille parametreinä tekstikenttien tiedot
         // asettaa lopuksi osakasValinta listViewiin lisätyn osakkaan nimen
+        // tarkistaa onko textfieldien matka ja painoluku arvot numeerisia, jos ei textfieldeihin asetetaan
+        // virhe teksti ja uutta oliota ei saada luotua ennen kuin syötteiden arvot ovat numeeriset
         tallenna.setOnAction(e -> {
             String virheTeksti = "Anna arvo lukuna";
             if (onNumeerinen(tfMatka) && onNumeerinen(tfPainoluku)) {
