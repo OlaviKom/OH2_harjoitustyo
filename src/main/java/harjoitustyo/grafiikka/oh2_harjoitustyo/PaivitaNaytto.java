@@ -16,7 +16,6 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 
 /**
- * PaivitaNaytto.java
  * Tämä luokka on uuden yksityistieo osakkaan tietojen päivittämistä käsittelävä popup ikkuna/naytto
  * toimii OsakasKayttoliittyman aliluokkana
  * @author Antti Komulainen
@@ -132,6 +131,8 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
 
          // Asetetaan tallenna buttoni ei klikattavaksi,
          // jos kaikkiin kenttiin ei ole syötetty arvoa
+        // toteutukseen otettu mallia linkistä:
+        // https://stackoverflow.com/questions/23040531/how-to-disable-button-when-textfield-is-empty
         paivitaTallenna.disableProperty().bind(
                 Bindings.isEmpty(paivitaTfNimi.textProperty())
                         .or(Bindings.isEmpty(paivitaTfKiinteistotunnus.textProperty()))

@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.text.DecimalFormat;
 
 /**
- * Osakas.java
  * Tämä luokka kuvaa yksityistie osakkaan tiedot
  * @author Antti Komulainen
  * @version 1.00 12/03/2024
@@ -255,8 +254,9 @@ public class Osakas implements Serializable {
      * Testipääohlema luokalle
      * @param args
      */
-
+    /**
     public static void main (String[] args){
+
         Osakas osakas = new Osakas("Testi", "123", "Testi", "Testi", "testi", 0.75, 1700,
                 "Vapaa-ajan asunto");
 
@@ -264,6 +264,9 @@ public class Osakas implements Serializable {
         osakas.laskeTieyksikkot();
         osakas.laskeTieMaksu();
         System.out.println(osakas);
+
     }
+     */
+
 }
 

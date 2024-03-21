@@ -4,7 +4,6 @@ import java.io.*;
 import java.util.ArrayList;
 
 /**
- * Tiedosto.java
  * Tämä luokka on käsittelee ohjelman tiedostoa, josta luetaan ja johon tallenetaan yksityis osakkaiden tiedot
  * @author Antti Komulainen
  * @version 1.00 14/03/2024
@@ -14,7 +13,7 @@ public class Tiedosto{
     /** tiedosto luettavalle ja kirjoitettavalle tiedostolle */
     private File tiedostoNimi = new File("osakkaat.dat");
     /** lista Osakas olioita varten */
-    private ArrayList<Osakas> osakkaat = new ArrayList<>();
+    private ArrayList<Osakas> osakkaat = new ArrayList<Osakas>();
     /** lista osakkaiden nimiä varten */
     private ArrayList<String> osakasNimet = new ArrayList<>();
 

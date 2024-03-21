@@ -7,18 +7,14 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
- * LisaaNaytto.java
  * Tämä luokka on uuden yksityistieo osakkaan tietojen lisäämistä käsittelevä popup ikkuna/naytto
  * toimii OsakasKayttoliittyman aliluokkana
  * @author Antti Komulainen
@@ -96,6 +92,8 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
 
          // Asetetaan tallenna painike ei klikattavaksi,
          // jos kaikkiin kenttiin ei ole syötetty arvoa
+        // toteutukseen otettu mallia linkistä:
+        // https://stackoverflow.com/questions/23040531/how-to-disable-button-when-textfield-is-empty
         tallenna.disableProperty().bind(
                 Bindings.isEmpty(tfNimi.textProperty())
                         .or(Bindings.isEmpty(tfKiinteistotunnus.textProperty()))
