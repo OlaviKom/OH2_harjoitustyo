@@ -145,15 +145,31 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
         // asettaa valitun osakkaan arvoiksi kenttiin syötetyt arvot
         // asettaa lopuksi osakasValinta listViewiin lisätyn osakkaan nimen
         paivitaTallenna.setOnAction(e -> {
-            tiedosto.getOsakkaat().get(valittuIndeksi).setNimi(paivitaTfNimi.getText());
-            tiedosto.getOsakkaat().get(valittuIndeksi).setKiinteistotunnus(paivitaTfKiinteistotunnus.getText());
-            tiedosto.getOsakkaat().get(valittuIndeksi).setLaskutusosoite(paivitaTfLaskutusosoite.getText());
-            tiedosto.getOsakkaat().get(valittuIndeksi).setEmail(paivitaTfEmail.getText());
-            tiedosto.getOsakkaat().get(valittuIndeksi).setPuhnum(paivitaTfPuhnum.getText());
-            tiedosto.getOsakkaat().get(valittuIndeksi).setMatka(Double.parseDouble(paivitaTfMatka.getText()));
-            tiedosto.getOsakkaat().get(valittuIndeksi).setPainoluku(Integer.parseInt(paivitaTfPainoluku.getText()));
-            tiedosto.getOsakkaat().get(valittuIndeksi).setLiikennelaji(paivitaCbLiikennelaji.getValue());
-            OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
+            String virheTeksti = "Anna arvo lukuna";
+            if (onNumeerinen(paivitaTfMatka) && onNumeerinen(paivitaTfPainoluku)) {
+                tiedosto.getOsakkaat().get(valittuIndeksi).setNimi(paivitaTfNimi.getText());
+                tiedosto.getOsakkaat().get(valittuIndeksi).setKiinteistotunnus(paivitaTfKiinteistotunnus.getText());
+                tiedosto.getOsakkaat().get(valittuIndeksi).setLaskutusosoite(paivitaTfLaskutusosoite.getText());
+                tiedosto.getOsakkaat().get(valittuIndeksi).setEmail(paivitaTfEmail.getText());
+                tiedosto.getOsakkaat().get(valittuIndeksi).setPuhnum(paivitaTfPuhnum.getText());
+                tiedosto.getOsakkaat().get(valittuIndeksi).setMatka(Double.parseDouble(paivitaTfMatka.getText()));
+                tiedosto.getOsakkaat().get(valittuIndeksi).setPainoluku(Integer.parseInt(paivitaTfPainoluku.getText()));
+                tiedosto.getOsakkaat().get(valittuIndeksi).setLiikennelaji(paivitaCbLiikennelaji.getValue());
+                OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
+            }  else {
+                if(!onNumeerinen(paivitaTfMatka)) {
+                    paivitaTfMatka.setText(virheTeksti);
+                    paivitaTfMatka.setOnMouseClicked(event -> {
+                        paivitaTfMatka.setText("");
+                    });
+                }
+                if(!onNumeerinen(paivitaTfPainoluku)) {
+                    paivitaTfPainoluku.setText(virheTeksti);
+                    paivitaTfPainoluku.setOnMouseClicked(event -> {
+                        paivitaTfPainoluku.setText("");
+                    });
+                }
+            }
         });
 
         // poistu painikkeen tapahtuman käsittelijä
@@ -165,5 +181,15 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
         paivitaStage.setTitle("päivitä yksityistieosakkaan tiedot");
         paivitaStage.initModality(Modality.APPLICATION_MODAL);
         paivitaStage.show();
+    }
+
+    private boolean onNumeerinen(TextField kentta){
+        try{
+            Double.parseDouble(kentta.getText());
+            return true;
+        }
+        catch (NumberFormatException e){
+            return false;
+        }
     }
 }
