@@ -236,7 +236,7 @@ public class Osakas implements Serializable {
      */
     @Override
     public String toString() {
-        DecimalFormat f = new DecimalFormat("##.00");
+        DecimalFormat f = new DecimalFormat("0.00");
         String osakasTiedot = "Nimi: " + getNimi() +
                 "\nosoite: " + getKiinteistotunnus() +
                 "\nlaskutusosoite: " + getLaskutusosoite() +
