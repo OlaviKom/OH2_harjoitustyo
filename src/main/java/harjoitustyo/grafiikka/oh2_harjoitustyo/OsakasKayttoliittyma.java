@@ -11,15 +11,17 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
+import java.io.Serializable;
+
 /**
  * OsakasKayttoliittyma.java
  * Tämä luokka on yksityistie osakkaan tietoja käsittelevä käyttöliittymä,
  * jolla voidaan lisätä uusi osakas, katsella osakkaiden tietoja sekä muokata osakkaan tietoja,
  * @author Antti Komulainen
- * @version 1.00 17/03/2024
+ * @version 1.00 15/03/2024
  */
 
-public class OsakasKayttoliittyma extends Application {
+public class OsakasKayttoliittyma extends Application{
 
     /** painike osakkaan lisäämistä varten */
     private final Button lisaa = new Button("Lisää osakas");

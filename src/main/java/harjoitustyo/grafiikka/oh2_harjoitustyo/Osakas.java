@@ -251,6 +251,11 @@ public class Osakas implements Serializable {
         return osakasTiedot;
     }
 
+    /**
+     * Testipääohlema luokalle
+     * @param args
+     */
+
     public static void main (String[] args){
         Osakas osakas = new Osakas("Testi", "123", "Testi", "Testi", "testi", 0.75, 1700,
                 "Vapaa-ajan asunto");

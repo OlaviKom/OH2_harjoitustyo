@@ -20,7 +20,7 @@ import java.util.ArrayList;
  * Tämä luokka on uuden yksityistieo osakkaan tietojen päivittämistä käsittelävä popup ikkuna/naytto
  * toimii OsakasKayttoliittyman aliluokkana
  * @author Antti Komulainen
- * @version 1.00 17/03/2024
+ * @version 1.00 16/03/2024
  */
 
 public class PaivitaNaytto extends OsakasKayttoliittyma {

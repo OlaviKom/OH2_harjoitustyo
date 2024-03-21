@@ -22,7 +22,7 @@ import javafx.stage.Stage;
  * Tämä luokka on uuden yksityistieo osakkaan tietojen lisäämistä käsittelevä popup ikkuna/naytto
  * toimii OsakasKayttoliittyman aliluokkana
  * @author Antti Komulainen
- * @version 1.00 17/03/2024
+ * @version 1.00 16/03/2024
  */
 public class LisaaNaytto extends OsakasKayttoliittyma {
     /** painike tietojen tallentamista varten */

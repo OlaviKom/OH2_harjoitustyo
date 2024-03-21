@@ -7,7 +7,7 @@ import java.util.ArrayList;
  * Tiedosto.java
  * Tämä luokka on käsittelee ohjelman tiedostoa, josta luetaan ja johon tallenetaan yksityis osakkaiden tiedot
  * @author Antti Komulainen
- * @version 1.00 17/03/2024
+ * @version 1.00 14/03/2024
  */
 
 public class Tiedosto{
@@ -36,7 +36,6 @@ public class Tiedosto{
                             tiedostoLoppu = true;
                             tiedosto.close();
                         }
-
                     }
             }
             catch (IOException | ClassNotFoundException e){
