@@ -53,13 +53,6 @@ public class OsakasKayttoliittyma extends Application {
         tiedosto.lueTiedosto();
         // paneeli
         BorderPane paneeli = new BorderPane();
-        // MIETI POISTETAANKO NÄMÄ
-        Menu menu = new Menu("Tiedosto");
-        MenuBar mb = new MenuBar();
-        MenuItem mtLisaa = new MenuItem("Lisää");
-        menu.getItems().add(mtLisaa);
-        mb.getMenus().add(menu);
-        paneeli.setTop(mb);
 
         // teksti kenttä osakkaan tietojen näyttämistä varten
         osakasTiedot = new TextArea();
