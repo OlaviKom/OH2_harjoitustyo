@@ -70,7 +70,7 @@ public class OsakasKayttoliittyma extends Application{
             }
         });
         // Asetetaan listViewin leveys
-        osakasValinta.setPrefWidth(100);
+        osakasValinta.setPrefWidth(120);
         paneeli.setLeft(osakasValinta);
 
         // Hbox painikkeita lisaa, paivita ja lopeta varten
