@@ -36,6 +36,9 @@ public class Osakas implements Serializable {
     /** vakio yhden tieyksikön hinnalle*/
     final static double tieyksikkoHinta = 0.17;
 
+    /** Kenttä yksityistien nimeä varten */
+    final static String yksityistieNimi = "Savikankaan yksityistie";
+
 
     /**
      * parametriton alustaja
@@ -236,7 +239,8 @@ public class Osakas implements Serializable {
     @Override
     public String toString() {
         DecimalFormat f = new DecimalFormat("0.00");
-        String osakasTiedot = "Nimi: " + getNimi() +
+        String osakasTiedot = yksityistieNimi +
+                "\nOsakas: " + getNimi() +
                 "\nosoite: " + getKiinteistotunnus() +
                 "\nlaskutusosoite: " + getLaskutusosoite() +
                 "\nsähköposti: " + getEmail() +
