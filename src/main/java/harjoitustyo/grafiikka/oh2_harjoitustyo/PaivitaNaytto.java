@@ -19,7 +19,7 @@ import java.util.ArrayList;
  * Tämä luokka on uuden yksityistieo osakkaan tietojen päivittämistä käsittelävä popup ikkuna/naytto
  * toimii OsakasKayttoliittyman aliluokkana
  * @author Antti Komulainen
- * @version 1.00 16/03/2024
+ * @version 1.10 24/03/2024
  */
 
 public class PaivitaNaytto extends OsakasKayttoliittyma {
@@ -84,17 +84,7 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
         paivitaCbOsakkaat.setValue("Osakkas kenen tiedot päivitetään");
 
         // combobxin kuuntelija, asettaa valitun osakkaan tiedot valmiiksi tekstikenttiin
-        paivitaCbOsakkaat.setOnAction(e -> {
-            valittuIndeksi = paivitaCbOsakkaat.getSelectionModel().getSelectedIndex();
-            paivitaTfNimi.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getNimi());
-            paivitaTfKiinteistotunnus.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getKiinteistotunnus());
-            paivitaTfLaskutusosoite.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getLaskutusosoite());
-            paivitaTfEmail.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getEmail());
-            paivitaTfPuhnum.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getPuhnum());
-            paivitaTfMatka.setText(String.valueOf(tiedosto.getOsakkaat().get(valittuIndeksi).getMatka()));
-            paivitaTfPainoluku.setText(String.valueOf(tiedosto.getOsakkaat().get(valittuIndeksi).getPainoluku()));
-            paivitaCbLiikennelaji.setValue(tiedosto.getOsakkaat().get(valittuIndeksi).getLiikennelaji());
-        });
+        paivitaCbOsakkaat.setOnAction(e -> asetaTiedotKenttiin());
 
         // loppujen solmujen lisääminen gridpaneen
         osakkaanTiedot.add(paivitaCbOsakkaat, 1,0);
@@ -143,35 +133,7 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
                         .or(Bindings.isEmpty(paivitaTfPainoluku.textProperty())));
 
         // tallenna painikkeen tapahtuman käsittelijä
-        // asettaa valitun osakkaan arvoiksi kenttiin syötetyt arvot
-        // asettaa lopuksi osakasValinta listViewiin lisätyn osakkaan nimen
-        paivitaTallenna.setOnAction(e -> {
-            String virheTeksti = "Anna arvo lukuna";
-            if (onNumeerinen(paivitaTfMatka) && onNumeerinen(paivitaTfPainoluku)) {
-                tiedosto.getOsakkaat().get(valittuIndeksi).setNimi(paivitaTfNimi.getText());
-                tiedosto.getOsakkaat().get(valittuIndeksi).setKiinteistotunnus(paivitaTfKiinteistotunnus.getText());
-                tiedosto.getOsakkaat().get(valittuIndeksi).setLaskutusosoite(paivitaTfLaskutusosoite.getText());
-                tiedosto.getOsakkaat().get(valittuIndeksi).setEmail(paivitaTfEmail.getText());
-                tiedosto.getOsakkaat().get(valittuIndeksi).setPuhnum(paivitaTfPuhnum.getText());
-                tiedosto.getOsakkaat().get(valittuIndeksi).setMatka(Double.parseDouble(paivitaTfMatka.getText()));
-                tiedosto.getOsakkaat().get(valittuIndeksi).setPainoluku(Integer.parseInt(paivitaTfPainoluku.getText()));
-                tiedosto.getOsakkaat().get(valittuIndeksi).setLiikennelaji(paivitaCbLiikennelaji.getValue());
-                OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
-            }  else {
-                if(!onNumeerinen(paivitaTfMatka)) {
-                    paivitaTfMatka.setText(virheTeksti);
-                    paivitaTfMatka.setOnMouseClicked(event -> {
-                        paivitaTfMatka.setText("");
-                    });
-                }
-                if(!onNumeerinen(paivitaTfPainoluku)) {
-                    paivitaTfPainoluku.setText(virheTeksti);
-                    paivitaTfPainoluku.setOnMouseClicked(event -> {
-                        paivitaTfPainoluku.setText("");
-                    });
-                }
-            }
-        });
+        paivitaTallenna.setOnAction(e -> paivitaTiedot());
 
         // poistu painikkeen tapahtuman käsittelijä
         // sulkee ikkunan/nayton
@@ -184,13 +146,84 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
         paivitaStage.show();
     }
 
-    private boolean onNumeerinen(TextField kentta){
+    /**
+     * tarkistaa onko arvo double vai ei
+     * @param kentta
+     * @return true tai false
+     */
+    private boolean onDouble(TextField kentta){
         try{
             Double.parseDouble(kentta.getText());
             return true;
         }
         catch (NumberFormatException e){
             return false;
+        }
+    }
+
+    /**
+     * tarkistaa onko arvo integer vai ei
+     * @param kentta
+     * @return true or false
+     */
+    private boolean onInteger(TextField kentta){
+        try{
+            Integer.parseInt(kentta.getText());
+            return true;
+        }
+        catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    /**
+     * asettaa comboboxista valitun osakkaan tiedot valmiiksi textfield kenttiin
+     */
+    private void asetaTiedotKenttiin() {
+        valittuIndeksi = paivitaCbOsakkaat.getSelectionModel().getSelectedIndex();
+        paivitaTfNimi.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getNimi());
+        paivitaTfKiinteistotunnus.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getKiinteistotunnus());
+        paivitaTfLaskutusosoite.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getLaskutusosoite());
+        paivitaTfEmail.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getEmail());
+        paivitaTfPuhnum.setText(tiedosto.getOsakkaat().get(valittuIndeksi).getPuhnum());
+        paivitaTfMatka.setText(String.valueOf(tiedosto.getOsakkaat().get(valittuIndeksi).getMatka()));
+        paivitaTfPainoluku.setText(String.valueOf(tiedosto.getOsakkaat().get(valittuIndeksi).getPainoluku()));
+        paivitaCbLiikennelaji.setValue(tiedosto.getOsakkaat().get(valittuIndeksi).getLiikennelaji());
+
+    }
+
+    /**
+     * päivittää valitun osakkaan tiedot
+     * tarkastaa onko matka kentän arvo double ja onko painoluku kentän arvo integer
+     * jos ei ole asettaa kyseisiin textfieldiin virhetekstin ja ei anna päivityksen mennä läpi
+     * ennen kuin arvot ovat oikeat
+     */
+    private void paivitaTiedot(){
+        String virheTeksti = "Anna arvo lukuna";
+        String virheTeksti2 = "Anna arvo kokonaislukuna";
+        if (onDouble(paivitaTfMatka) && onInteger(paivitaTfPainoluku)) {
+            tiedosto.getOsakkaat().get(valittuIndeksi).setNimi(paivitaTfNimi.getText());
+            tiedosto.getOsakkaat().get(valittuIndeksi).setKiinteistotunnus(paivitaTfKiinteistotunnus.getText());
+            tiedosto.getOsakkaat().get(valittuIndeksi).setLaskutusosoite(paivitaTfLaskutusosoite.getText());
+            tiedosto.getOsakkaat().get(valittuIndeksi).setEmail(paivitaTfEmail.getText());
+            tiedosto.getOsakkaat().get(valittuIndeksi).setPuhnum(paivitaTfPuhnum.getText());
+            tiedosto.getOsakkaat().get(valittuIndeksi).setMatka(Double.parseDouble(paivitaTfMatka.getText()));
+            tiedosto.getOsakkaat().get(valittuIndeksi).setPainoluku(Integer.parseInt(paivitaTfPainoluku.getText()));
+            tiedosto.getOsakkaat().get(valittuIndeksi).setLiikennelaji(paivitaCbLiikennelaji.getValue());
+            OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
+        }  else {
+            if(!onDouble(paivitaTfMatka)) {
+                paivitaTfMatka.setText(virheTeksti);
+                paivitaTfMatka.setOnMouseClicked(event -> {
+                    paivitaTfMatka.setText("");
+                });
+            }
+            if(!onInteger(paivitaTfPainoluku)) {
+                paivitaTfPainoluku.setText(virheTeksti2);
+                paivitaTfPainoluku.setOnMouseClicked(event -> {
+                    paivitaTfPainoluku.setText("");
+                });
+            }
         }
     }
 }

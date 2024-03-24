@@ -249,24 +249,5 @@ public class Osakas implements Serializable {
                 "\ntiemaksu: " + f.format(getTieMaksu()) + " €";
         return osakasTiedot;
     }
-
-    /**
-     * Testipääohlema luokalle
-     * @param args
-     */
-    /**
-    public static void main (String[] args){
-
-        Osakas osakas = new Osakas("Testi", "123", "Testi", "Testi", "testi", 0.75, 1700,
-                "Vapaa-ajan asunto");
-
-        osakas.setPainoluku(750);
-        osakas.laskeTieyksikkot();
-        osakas.laskeTieMaksu();
-        System.out.println(osakas);
-
-    }
-     */
-
 }
 

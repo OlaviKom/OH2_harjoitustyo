@@ -18,7 +18,7 @@ import javafx.stage.Stage;
  * Tämä luokka on uuden yksityistieo osakkaan tietojen lisäämistä käsittelevä popup ikkuna/naytto
  * toimii OsakasKayttoliittyman aliluokkana
  * @author Antti Komulainen
- * @version 1.00 16/03/2024
+ * @version 1.10 24/03/2024
  */
 public class LisaaNaytto extends OsakasKayttoliittyma {
     /** painike tietojen tallentamista varten */
@@ -104,37 +104,7 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
                         .or(Bindings.isEmpty(tfPainoluku.textProperty())));
 
         // tallenna painikkeen tapahtuman käsittelijä
-        // luo uuden Osakas olion ja antaa sille parametreinä tekstikenttien tiedot
-        // asettaa lopuksi osakasValinta listViewiin lisätyn osakkaan nimen
-        // tarkistaa onko textfieldien matka ja painoluku arvot numeerisia, jos ei textfieldeihin asetetaan
-        // virhe teksti ja uutta oliota ei saada luotua ennen kuin syötteiden arvot ovat numeeriset
-        tallenna.setOnAction(e -> {
-            String virheTeksti = "Anna arvo lukuna";
-            if (onNumeerinen(tfMatka) && onNumeerinen(tfPainoluku)) {
-                tiedosto.getOsakkaat().add(new Osakas(tfNimi.getText(),
-                        tfKiinteistotunnus.getText(),
-                        tfLaskutusosoite.getText(),
-                        tfEmail.getText(),
-                        tfPuhnum.getText(),
-                        Double.parseDouble(tfMatka.getText()),
-                        Integer.parseInt(tfPainoluku.getText()),
-                        cbLiikennelaji.getValue()));
-                OsakasKayttoliittyma.osakasValinta.getItems().addAll(tiedosto.getOsakasNimet().getLast());
-            } else {
-                if(!onNumeerinen(tfMatka)) {
-                    tfMatka.setText(virheTeksti);
-                    tfMatka.setOnMouseClicked(event -> {
-                        tfMatka.setText("");
-                    });
-                }
-                if(!onNumeerinen(tfPainoluku)) {
-                    tfPainoluku.setText(virheTeksti);
-                    tfPainoluku.setOnMouseClicked(event -> {
-                        tfPainoluku.setText("");
-                    });
-                }
-            }
-        });
+        tallenna.setOnAction(e -> tallennaOsakas());
 
         // poistu painikkeen tapahtuman käsittelijä
         // sulkee ikkunan/nayton
@@ -147,7 +117,12 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
         lisaaStage.show();
     }
 
-    private boolean onNumeerinen(TextField kentta){
+    /**
+     * tarkistaa onko arvo double vai ei
+     * @param kentta
+     * @return true tai false
+     */
+    private boolean onDouble(TextField kentta){
         try{
             Double.parseDouble(kentta.getText());
             return true;
@@ -155,5 +130,57 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
         catch (NumberFormatException e){
             return false;
         }
+    }
+
+    /**
+     * tarkistaa onko arvo integer vai ei
+     * @param kentta
+     * @return true or false
+     */
+    private boolean onInteger(TextField kentta){
+        try{
+            Integer.parseInt(kentta.getText());
+            return true;
+        }
+        catch (NumberFormatException e){
+            return false;
+        }
+    }
+
+    /**
+     * luo uuden osakas olion annetuilla tiedoilla
+     * tarkastaa onko matka kentän arvo double ja onko painoluku kentän arvo integer
+     * jos ei ole asettaa kyseisiin textfieldiin virhetekstin ja ei anna päivityksen mennä läpi
+     * ennen kuin arvot ovat oikeat
+     */
+    private void tallennaOsakas(){
+        String virheTeksti = "Anna arvo lukuna";
+        String virheTeksti2 = "Anna arvo kokonaislukuna";
+
+        if (onDouble(tfMatka) && onInteger(tfPainoluku)) {
+            tiedosto.getOsakkaat().add(new Osakas(tfNimi.getText(),
+                    tfKiinteistotunnus.getText(),
+                    tfLaskutusosoite.getText(),
+                    tfEmail.getText(),
+                    tfPuhnum.getText(),
+                    Double.parseDouble(tfMatka.getText()),
+                    Integer.parseInt(tfPainoluku.getText()),
+                    cbLiikennelaji.getValue()));
+            OsakasKayttoliittyma.osakasValinta.getItems().addAll(tiedosto.getOsakasNimet().getLast());
+        } else {
+            if(!onDouble(tfMatka)) {
+                tfMatka.setText(virheTeksti);
+                tfMatka.setOnMouseClicked(event -> {
+                    tfMatka.setText("");
+                });
+            }
+            if(!onInteger(tfPainoluku)) {
+                tfPainoluku.setText(virheTeksti2);
+                tfPainoluku.setOnMouseClicked(event -> {
+                    tfPainoluku.setText("");
+                });
+            }
+        }
+
     }
 }

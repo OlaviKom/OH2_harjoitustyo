@@ -110,7 +110,7 @@ public class OsakasKayttoliittyma extends Application{
     }
 
     /**
-     * Pääohelma
+     * Pääohjelma
      */
     public static void main(String[] args){
         Application.launch(args);
