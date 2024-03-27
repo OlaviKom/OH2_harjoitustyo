@@ -2,6 +2,12 @@ package harjoitustyo.grafiikka.oh2_harjoitustyo;
 
 import javafx.scene.control.TextField;
 
+/**
+ * Tämä luokka on tekstikenttien arvojen tarkistusta varten
+ * @author Antti Komulainen
+ * @version 1.00 27/03/2024
+ */
+
 public class Tarkistaja {
 
     public Tarkistaja(){
