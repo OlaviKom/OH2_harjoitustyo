@@ -238,7 +238,9 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
             tiedosto.getOsakkaat().get(valittuIndeksi).setLiikennelaji(paivitaCbLiikennelaji.getValue());
             tiedosto.getOsakkaat().get(valittuIndeksi).laskeTieyksikkot();
             tiedosto.getOsakkaat().get(valittuIndeksi).laskeTieMaksu();
-            OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
+            if(osakasValinta.getSelectionModel().getSelectedIndex() == valittuIndeksi) {
+                OsakasKayttoliittyma.osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
+            }
         }  else {
             if(!onDouble(paivitaTfMatka)) {
                 paivitaTfMatka.setText(virheTeksti);
