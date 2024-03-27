@@ -32,7 +32,7 @@ public class OsakasKayttoliittyma extends Application{
     /**
      * painike ohjelman lopettamista varten
      */
-    private final Button lopeta = new Button("Lopeta");
+    private final Button lopeta = new Button("Lopeta ja tallenna");
     /**
      * ListView jolla valitaan osakas kenen tietoja halutaan tarkastella
      */
@@ -71,7 +71,7 @@ public class OsakasKayttoliittyma extends Application{
         // teksti kenttä osakkaan tietojen näyttämistä varten
         osakasTiedot = new TextArea();
         osakasTiedot.setEditable(false);
-        paneeli.setRight(osakasTiedot);
+        paneeli.setCenter(osakasTiedot);
 
         // ListView osakkaan valitsemista varten
         osakasValinta =

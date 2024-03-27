@@ -173,36 +173,6 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
     }
 
     /**
-     * tarkistaa onko arvo double vai ei
-     * @param kentta TextField, joka halutaan tarkastaa
-     * @return true tai false
-     */
-    private boolean onDouble(TextField kentta){
-        try{
-            Double.parseDouble(kentta.getText());
-            return true;
-        }
-        catch (NumberFormatException e){
-            return false;
-        }
-    }
-
-    /**
-     * tarkistaa onko arvo integer vai ei
-     * @param kentta TextField, joka halutaan tarkastaa
-     * @return true or false
-     */
-    private boolean onInteger(TextField kentta){
-        try{
-            Integer.parseInt(kentta.getText());
-            return true;
-        }
-        catch (NumberFormatException e){
-            return false;
-        }
-    }
-
-    /**
      * asettaa comboboxista valitun osakkaan tiedot valmiiksi textfield kenttiin
      */
     private void asetaTiedotKenttiin() {
@@ -225,9 +195,10 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
      * ennen kuin arvot ovat oikeat
      */
     private void paivitaTiedot(){
+        Tarkistaja tarkistaja = new Tarkistaja();
         String virheTeksti = "Anna arvo lukuna";
         String virheTeksti2 = "Anna arvo kokonaislukuna";
-        if (onDouble(paivitaTfMatka) && onInteger(paivitaTfPainoluku)) {
+        if (tarkistaja.onDouble(paivitaTfMatka) && tarkistaja.onInteger(paivitaTfPainoluku)) {
             tiedosto.getOsakkaat().get(valittuIndeksi).setNimi(paivitaTfNimi.getText());
             tiedosto.getOsakkaat().get(valittuIndeksi).setKiinteistotunnus(paivitaTfKiinteistotunnus.getText());
             tiedosto.getOsakkaat().get(valittuIndeksi).setLaskutusosoite(paivitaTfLaskutusosoite.getText());
@@ -242,13 +213,13 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
                 osakasTiedot.setText(tiedosto.getOsakkaat().get(valittuIndeksi).toString());
             }
         }  else {
-            if(!onDouble(paivitaTfMatka)) {
+            if(!tarkistaja.onDouble(paivitaTfMatka)) {
                 paivitaTfMatka.setText(virheTeksti);
                 paivitaTfMatka.setOnMouseClicked(event -> {
                     paivitaTfMatka.setText("");
                 });
             }
-            if(!onInteger(paivitaTfPainoluku)) {
+            if(!tarkistaja.onInteger(paivitaTfPainoluku)) {
                 paivitaTfPainoluku.setText(virheTeksti2);
                 paivitaTfPainoluku.setOnMouseClicked(event -> {
                     paivitaTfPainoluku.setText("");

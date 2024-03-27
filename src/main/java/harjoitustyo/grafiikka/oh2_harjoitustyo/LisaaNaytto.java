@@ -138,46 +138,17 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
     }
 
     /**
-     * tarkistaa onko arvo double vai ei
-     * @param kentta TextField, joka halutaan tarkastaa
-     * @return true tai false
-     */
-    private boolean onDouble(TextField kentta){
-        try{
-            Double.parseDouble(kentta.getText());
-            return true;
-        }
-        catch (NumberFormatException e){
-            return false;
-        }
-    }
-
-    /**
-     * tarkistaa onko arvo integer vai ei
-     * @param kentta TextField, joka halutaan tarkastaa
-     * @return true or false
-     */
-    private boolean onInteger(TextField kentta){
-        try{
-            Integer.parseInt(kentta.getText());
-            return true;
-        }
-        catch (NumberFormatException e){
-            return false;
-        }
-    }
-
-    /**
      * luo uuden osakas olion annetuilla tiedoilla
      * tarkastaa onko matka kentän arvo double ja onko painoluku kentän arvo integer
      * jos ei ole asettaa kyseisiin textfieldiin virhetekstin ja ei anna päivityksen mennä läpi
      * ennen kuin arvot ovat oikeat
      */
     private void tallennaOsakas(){
+        Tarkistaja tarkistaja = new Tarkistaja();
         String virheTeksti = "Anna arvo lukuna";
         String virheTeksti2 = "Anna arvo kokonaislukuna";
 
-        if (onDouble(tfMatka) && onInteger(tfPainoluku)) {
+        if (tarkistaja.onDouble(tfMatka) && tarkistaja.onInteger(tfPainoluku)) {
             tiedosto.getOsakkaat().add(new Osakas(tfNimi.getText(),
                     tfKiinteistotunnus.getText(),
                     tfLaskutusosoite.getText(),
@@ -188,13 +159,13 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
                     cbLiikennelaji.getValue()));
             OsakasKayttoliittyma.osakasValinta.getItems().addAll(tiedosto.getOsakasNimet().getLast());
         } else {
-            if(!onDouble(tfMatka)) {
+            if(!tarkistaja.onDouble(tfMatka)) {
                 tfMatka.setText(virheTeksti);
                 tfMatka.setOnMouseClicked(event -> {
                     tfMatka.setText("");
                 });
             }
-            if(!onInteger(tfPainoluku)) {
+            if(!tarkistaja.onInteger(tfPainoluku)) {
                 tfPainoluku.setText(virheTeksti2);
                 tfPainoluku.setOnMouseClicked(event -> {
                     tfPainoluku.setText("");
