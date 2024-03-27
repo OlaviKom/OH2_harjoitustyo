@@ -21,19 +21,33 @@ import javafx.stage.Stage;
 
 public class OsakasKayttoliittyma extends Application{
 
-    /** painike osakkaan lisäämistä varten */
+    /**
+     * painike osakkaan lisäämistä varten
+     */
     private final Button lisaa = new Button("Lisää osakas");
-    /** painike osakkaan tietojen päivittämistä varten */
+    /**
+     * painike osakkaan tietojen päivittämistä varten
+     */
     private final Button paivita = new Button("Päivitä osakkaan tiedot");
-    /** painike ohjelman lopettamista varten */
+    /**
+     * painike ohjelman lopettamista varten
+     */
     private final Button lopeta = new Button("Lopeta");
-    /** ListView jolla valitaan osakas kenen tietoja halutaan tarkastella */
+    /**
+     * ListView jolla valitaan osakas kenen tietoja halutaan tarkastella
+     */
     static ListView<String> osakasValinta;
-    /** Teksti alue, jossa näytetään halutun osakkaan tiedot */
+    /**
+     * Teksti alue, jossa näytetään halutun osakkaan tiedot
+     */
     static TextArea osakasTiedot;
-    /** taulu, jossa on mahdolliset valittavat liikennelajit */
+    /**
+     * taulu, jossa on mahdolliset valittavat liikennelajit
+     */
     private final String [] liikennelajit = {"Vakituinen asunto", "Vapaa-ajan asunto", "Kesämökki", "Lomamökki"};
-    /** luokka tiedosto, ohjelman tiedoston käsittelyä varte */
+    /**
+     * luokka tiedosto, ohjelman tiedoston käsittelyä varte
+     */
     static Tiedosto tiedosto = new Tiedosto();
     /**
      * palauttaa taulun, jossa on liikennelajit
@@ -110,7 +124,7 @@ public class OsakasKayttoliittyma extends Application{
     }
 
     /**
-     * Pääohjelma
+     * Ohjelman pääohjelma
      */
     public static void main(String[] args){
         Application.launch(args);

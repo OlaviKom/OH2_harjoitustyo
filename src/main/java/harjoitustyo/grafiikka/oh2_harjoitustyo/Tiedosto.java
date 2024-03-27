@@ -10,11 +10,17 @@ import java.util.ArrayList;
  */
 
 public class Tiedosto{
-    /** tiedosto luettavalle ja kirjoitettavalle tiedostolle */
+    /**
+     * tiedosto luettavalle ja kirjoitettavalle tiedostolle
+     */
     private File tiedostoNimi = new File("osakkaat.dat");
-    /** lista Osakas olioita varten */
+    /**
+     * lista Osakas olioita varten
+     */
     private ArrayList<Osakas> osakkaat = new ArrayList<Osakas>();
-    /** lista osakkaiden nimiä varten */
+    /**
+     * lista osakkaiden nimiä varten
+     */
     private ArrayList<String> osakasNimet = new ArrayList<>();
 
 

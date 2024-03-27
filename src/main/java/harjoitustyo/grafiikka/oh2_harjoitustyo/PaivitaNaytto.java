@@ -23,31 +23,57 @@ import java.util.ArrayList;
  */
 
 public class PaivitaNaytto extends OsakasKayttoliittyma {
-    /** painike tietojen tallentamista varten */
+    /**
+     * painike tietojen tallentamista varten
+     */
     private final Button paivitaTallenna = new Button("Tallenna");
-    /** painike poistumista varten */
+    /**
+     * painike poistumista varten
+     */
     private final Button paivitaPoistu = new Button("Poistu");
-    /** tekstikenttä nimen syöttämistä varten */
+    /**
+     * tekstikenttä nimen syöttämistä varten
+     */
     private final TextField paivitaTfNimi = new TextField();
-    /** tekstikenttä kiinteistötunnuksen syöttämistä varten */
+    /**
+     * tekstikenttä kiinteistötunnuksen syöttämistä varten
+     */
     private final TextField paivitaTfKiinteistotunnus = new TextField();
-    /** tekstikenttä laskutusosoitteen syöttämistä varten */
+    /**
+     * tekstikenttä laskutusosoitteen syöttämistä varten
+     */
     private final TextField paivitaTfLaskutusosoite = new TextField();
-    /** tekstikenttä sähköpostiosoitteen syöttämistä varten */
+    /**
+     * tekstikenttä sähköpostiosoitteen syöttämistä varten
+     */
     private final TextField paivitaTfEmail = new TextField();
-    /** tekstikenttä puhelinnumeron syöttämistä varten */
+    /**
+     * tekstikenttä puhelinnumeron syöttämistä varten
+     */
     private final TextField paivitaTfPuhnum = new TextField();
-    /** tekstikenttä matkan syöttämistä varten */
+    /**
+     * tekstikenttä matkan syöttämistä varten
+     */
     private final TextField paivitaTfMatka = new TextField();
-    /** tekstikenttä painoluvun syöttämistä varten */
+    /**
+     * tekstikenttä painoluvun syöttämistä varten
+     */
     private final TextField paivitaTfPainoluku = new TextField();
-    /** valinta lista, josta voidaan valita osakkaan liikennelaji */
+    /**
+     * valinta lista, josta voidaan valita osakkaan liikennelaji
+     */
     private final ComboBox<String> paivitaCbLiikennelaji = new ComboBox<>();
-    /** valinta lista, päivitettävän osakkaan valitsemista varten */
+    /**
+     * valinta lista, päivitettävän osakkaan valitsemista varten
+     */
     private final ComboBox<String> paivitaCbOsakkaat = new ComboBox<>();
-    /** valitun osakkaan ideksi */
+    /**
+     * valitun osakkaan ideksi
+     */
     private int valittuIndeksi;
-    /** lista osakkaiden nimiä varten */
+    /**
+     * lista osakkaiden nimiä varten
+     */
     private ArrayList<String> osakkaidenNimet = new ArrayList<>();
 
     /**
@@ -148,7 +174,7 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
 
     /**
      * tarkistaa onko arvo double vai ei
-     * @param kentta
+     * @param kentta TextField, joka halutaan tarkastaa
      * @return true tai false
      */
     private boolean onDouble(TextField kentta){
@@ -163,7 +189,7 @@ public class PaivitaNaytto extends OsakasKayttoliittyma {
 
     /**
      * tarkistaa onko arvo integer vai ei
-     * @param kentta
+     * @param kentta TextField, joka halutaan tarkastaa
      * @return true or false
      */
     private boolean onInteger(TextField kentta){

@@ -21,25 +21,45 @@ import javafx.stage.Stage;
  * @version 1.10 24/03/2024
  */
 public class LisaaNaytto extends OsakasKayttoliittyma {
-    /** painike tietojen tallentamista varten */
+    /**
+     * painike tietojen tallentamista varten
+     */
     private final Button tallenna = new Button("Tallenna");
-    /** painike poistumista varten */
+    /**
+     * painike poistumista varten
+     */
     private final Button poistu = new Button("Poistu");
-    /** tekstikenttä nimen syöttämistä varten */
+    /**
+     * tekstikenttä nimen syöttämistä varten
+     */
     private final TextField tfNimi = new TextField();
-    /** tekstikenttä kiinteistötunnuksen syöttämistä varten */
+    /**
+     * tekstikenttä kiinteistötunnuksen syöttämistä varten
+     */
     private final TextField tfKiinteistotunnus = new TextField();
-    /** tekstikenttä laskutusosoitteen syöttämistä varten */
+    /**
+     * tekstikenttä laskutusosoitteen syöttämistä varten
+     */
     private final TextField tfLaskutusosoite = new TextField();
-    /** tekstikenttä sähköpostiosoitteen syöttämistä varten */
+    /**
+     * tekstikenttä sähköpostiosoitteen syöttämistä varten
+     */
     private final TextField tfEmail = new TextField();
-    /** tekstikenttä puhelinnumeron syöttämistä varten */
+    /**
+     * tekstikenttä puhelinnumeron syöttämistä varten
+     */
     private final TextField tfPuhnum = new TextField();
-    /** tekstikenttä matkan syöttämistä varten */
+    /**
+     * tekstikenttä matkan syöttämistä varten
+     */
     private final TextField tfMatka = new TextField();
-    /** tekstikenttä painoluvun syöttämistä varten */
+    /**
+     * tekstikenttä painoluvun syöttämistä varten
+     */
     private final TextField tfPainoluku = new TextField();
-    /** valinta lista, josta voidaan valita osakkaan liikennelaji */
+    /**
+     * valinta lista, josta voidaan valita osakkaan liikennelaji
+     */
     private final ComboBox<String> cbLiikennelaji = new ComboBox<>();
 
     /**
@@ -119,7 +139,7 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
 
     /**
      * tarkistaa onko arvo double vai ei
-     * @param kentta
+     * @param kentta TextField, joka halutaan tarkastaa
      * @return true tai false
      */
     private boolean onDouble(TextField kentta){
@@ -134,7 +154,7 @@ public class LisaaNaytto extends OsakasKayttoliittyma {
 
     /**
      * tarkistaa onko arvo integer vai ei
-     * @param kentta
+     * @param kentta TextField, joka halutaan tarkastaa
      * @return true or false
      */
     private boolean onInteger(TextField kentta){

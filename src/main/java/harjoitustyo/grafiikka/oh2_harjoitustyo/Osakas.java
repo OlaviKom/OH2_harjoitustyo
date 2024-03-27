@@ -10,33 +10,56 @@ import java.text.DecimalFormat;
  */
 
 public class Osakas implements Serializable {
-    /** Kenttä osakkaan nimelle */
+    /**
+     * Kenttä osakkaan nimelle
+     */
     private String nimi;
-    /** Kenttä kiinteistötunnus, osakkaan yksityistiellä sijaitsevalle kiinteistölle*/
+    /**
+     * Kenttä kiinteistötunnus, osakkaan yksityistiellä sijaitsevalle kiinteistölle
+     */
     private String kiinteistotunnus;
-    /** Kenttä osakkaan laskutusosoiteelle*/
+    /**
+     * Kenttä osakkaan laskutusosoiteelle
+     */
     private String laskutusosoite;
-    /** Kenttä osakkaan sähköpostiosoiteelle*/
+    /**
+     * Kenttä osakkaan sähköpostiosoiteelle
+     */
     private String email;
-    /** kenttä sakkaan puhelinnumerolle*/
+    /**
+     * kenttä sakkaan puhelinnumerolle
+     */
     private String puhnum;
-    /** kenttä osakkaan matkalle yksityistien alusta hänen kiinteistön
-     * tien risteykseen kilometreinä*/
+    /**
+     * kenttä osakkaan matkalle yksityistien alusta hänen kiinteistön
+     * tien risteykseen kilometreinä
+     */
     private double matka;
-    /** kenttä osakkaan yksityistien käytöä kuvaavalle painoluvulle, yksikkö tonnia*/
+    /**
+     * kenttä osakkaan yksityistien käytöä kuvaavalle painoluvulle, yksikkö tonnia
+     */
     private int painoluku;
-    /** kenttä osakkaan liikennelajille, kuvaa miten osakkas käyttää tietä esim. asunto tai loma-asunto
-     * termi perustuu MML yksityistien yksiköinti 2023 ohjeeseen*/
+    /**
+     * kenttä osakkaan liikennelajille, kuvaa miten osakkas käyttää tietä esim. asunto tai loma-asunto
+     */
     private String liikennelaji;
 
-    /** Kenttä osakkaan tieyksikkojen määrää varten*/
+    /**
+     * Kenttä osakkaan tieyksikkojen määrää varten
+     */
     private double tieyksikkot;
-    /** kenttä osakkaan yksityistie maksun määrää varten */
+    /**
+     * kenttä osakkaan yksityistie maksun määrää varten
+     */
     private double tieMaksu;
-    /** vakio yhden tieyksikön hinnalle*/
+    /**
+     * vakio yhden tieyksikön hinnalle
+     */
     final static double tieyksikkoHinta = 0.17;
 
-    /** Kenttä yksityistien nimeä varten */
+    /**
+     * Kenttä yksityistien nimeä varten
+     */
     final static String yksityistieNimi = "Savikankaan yksityistie";
 
 
